@@ -1,0 +1,34 @@
+connect: (names, commands, ide, value) => {
+        if (names == "") return;
+        if (fs.existsSync(`D:/coredb/${names}.json`)) {
+            console.log('Connected!');
+               switch (commands) {
+                     case 'add': 
+                     var userJson = JSON.parse(fs.readFileSync(`D:/coredb/${names}.json`));
+                     var id = `${ide}`;
+                     const val = `${value}`;
+                     userJson[`${id}`] = {
+                            value: val
+                     }
+     
+                     fs.writeFileSync(`D:/coredb/${names}.json`, JSON.stringify(userJson));
+                     break;
+                case 'remove': 
+                     var jsoned = JSON.parse(fs.readFileSync(`D:/coredb/${names}.json`));
+                     var idPassed = `${ide}`;
+                     delete jsoned[`${idPassed}`].value;
+                    break;
+               }
+            
+        } else {
+            console.log('[ERROR]: Database not found');
+        }
+    }
+
+   Object.keys(jsonData).forEach(function(key){
+            if (jsonData[key] === id) {
+              delete jsonData[key];
+
+              fs.writeFileSync(`D:/coredb/${name}.json`, JSON.stringify(jsonData));
+            }
+          });
